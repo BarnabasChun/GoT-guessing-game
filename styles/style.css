@@ -1,0 +1,407 @@
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
+  display: block; }
+
+audio, canvas, video {
+  display: inline-block; }
+
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+[hidden] {
+  display: none; }
+
+html {
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%; }
+
+a:focus {
+  outline: thin dotted; }
+
+a:active, a:hover {
+  outline: 0; }
+
+h1 {
+  font-size: 2em; }
+
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+b, strong {
+  font-weight: 700; }
+
+dfn {
+  font-style: italic; }
+
+mark {
+  background: #ff0;
+  color: #000; }
+
+code, kbd, pre, samp {
+  font-family: monospace, serif;
+  font-size: 1em; }
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word; }
+
+q {
+  quotes: \201C \201D \2018 \2019; }
+
+small {
+  font-size: 80%; }
+
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -.5em; }
+
+sub {
+  bottom: -.25em; }
+
+img {
+  border: 0; }
+
+svg:not(:root) {
+  overflow: hidden; }
+
+fieldset {
+  border: 1px solid silver;
+  margin: 0 2px;
+  padding: .35em .625em .75em; }
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0; }
+
+button, input {
+  line-height: normal; }
+
+button, html input[type=button], input[type=reset], input[type=submit] {
+  -webkit-appearance: button;
+  cursor: pointer; }
+
+button[disabled], input[disabled] {
+  cursor: default; }
+
+input[type=checkbox], input[type=radio] {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0; }
+
+input[type=search] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box; }
+
+input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+textarea {
+  overflow: auto;
+  vertical-align: top; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body, figure {
+  margin: 0; }
+
+legend, button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: '';
+  clear: both;
+  height: 0; }
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Garamond', 'serif'; }
+
+.wrapper {
+  max-width: 980px;
+  margin: 0 auto; }
+
+@font-face {
+  font-family: 'game_of_thronesregular';
+  src: url("../fonts/gameofthrones-webfont.woff2") format("woff2"), url("../fonts/gameofthrones-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+.stark {
+  background: slategrey;
+  color: #fff; }
+  .stark:hover {
+    background: #fff;
+    color: slategrey; }
+
+.lannister {
+  background: maroon;
+  color: goldenrod; }
+  .lannister:hover {
+    background: goldenrod;
+    color: maroon; }
+
+.targaryen {
+  background: #000;
+  color: darkred;
+  border: 1px solid white; }
+  .targaryen:hover {
+    background: darkred;
+    color: #000;
+    border: 1px solid black; }
+
+h1, h2, .letterSelector {
+  font-family: 'game_of_thronesregular', 'Garamond', serif;
+  text-transform: uppercase; }
+
+h3 {
+  font-size: 2.4rem;
+  margin-bottom: 50px; }
+
+ul {
+  list-style: none;
+  padding: 0; }
+
+button {
+  border: none;
+  background: goldenrod;
+  color: #000; }
+
+.flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
+.visuallyhidden:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  -webkit-clip-path: inset(100%);
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden; }
+
+header {
+  text-align: center; }
+  header h1 {
+    font-size: 4.8rem;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-style: normal;
+    margin: 0 0 40px;
+    padding-top: 80px; }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 4.0rem; } }
+  header h2 {
+    font-size: 3.2rem;
+    display: inline-block;
+    width: 100%;
+    word-wrap: break-word;
+    text-transform: uppercase;
+    margin: 0; }
+  header p {
+    font-size: 2.0rem; }
+    header p .livesTracker {
+      margin: 10px 0; }
+  header span {
+    color: goldenrod; }
+
+.letterSelector {
+  margin: 40px auto;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  .letterSelector li {
+    margin: 0 10px 10px 0;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    cursor: pointer; }
+  .letterSelector button {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    font-size: 2.4rem; }
+    .letterSelector button:hover {
+      color: white;
+      -webkit-transition: color 0.4s ease;
+      -o-transition: color 0.4s ease;
+      transition: color 0.4s ease; }
+  .letterSelector #newGame {
+    width: 200px;
+    height: 50px; }
+
+.gameOptions .wrapper {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  @media (max-width: 430px) {
+    .gameOptions .wrapper {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center; } }
+
+@media (max-width: 430px) {
+  .gameOptions .gameControls {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; } }
+
+.gameOptions input {
+  width: 200px;
+  margin-right: 20px;
+  padding: 10px;
+  height: 35px;
+  font-size: 1.6rem; }
+  @media (max-width: 430px) {
+    .gameOptions input {
+      margin-right: 0;
+      margin-bottom: 20px; } }
+  .gameOptions input:hover {
+    border: 2px solid darkcyan; }
+
+.gameOptions button {
+  height: 35px;
+  padding: 5px 10px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 10px; }
+  @media (max-width: 430px) {
+    .gameOptions button {
+      width: 200px;
+      margin: 0 auto;
+      border: 1px solid black; } }
+  .gameOptions button:hover {
+    color: #fff;
+    -webkit-transition: 0.4s ease-in-out;
+    -o-transition: 0.4s ease-in-out;
+    transition: 0.4s ease-in-out; }
+
+.gameOptions .stark {
+  background: slategrey;
+  color: #fff; }
+  .gameOptions .stark:hover {
+    background: #fff;
+    color: slategrey; }
+
+.gameOptions .lannister {
+  background: maroon;
+  color: goldenrod; }
+  .gameOptions .lannister:hover {
+    background: goldenrod;
+    color: maroon; }
+
+.gameOptions .targaryen {
+  background: #000;
+  color: darkred;
+  border: 1px solid white; }
+  .gameOptions .targaryen:hover {
+    background: darkred;
+    color: #000;
+    border: 1px solid black; }
+
+.houseSelector {
+  margin: 40px 0; }
+  @media (max-width: 635px) {
+    .houseSelector {
+      text-align: center; } }
+  @media (max-width: 635px) {
+    .houseSelector ul {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column; } }
+  .houseSelector li {
+    width: calc(25% - 15px);
+    margin-right: 20px; }
+    .houseSelector li:last-child {
+      margin-right: 0;
+      border: 1px solid goldenrod; }
+      .houseSelector li:last-child p {
+        font-size: 2.4rem;
+        text-transform: uppercase; }
+    @media (max-width: 635px) {
+      .houseSelector li {
+        width: 100%;
+        margin-right: 0;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin-bottom: 20px; } }
+    .houseSelector li:hover {
+      -webkit-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+      transform: scale(1.2);
+      -webkit-transition: -webkit-transform 0.4s ease;
+      transition: -webkit-transform 0.4s ease;
+      -o-transition: transform 0.4s ease;
+      transition: transform 0.4s ease;
+      transition: transform 0.4s ease, -webkit-transform 0.4s ease; }
+  .houseSelector img {
+    width: 100%;
+    display: block; }
+  .houseSelector button {
+    background: none;
+    padding: 0; }
+  .houseSelector p {
+    color: #fff; }
+  .houseSelector a {
+    color: #fff;
+    text-decoration: none; }

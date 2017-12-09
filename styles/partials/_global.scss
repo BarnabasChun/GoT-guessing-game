@@ -1,0 +1,70 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background: $secondaryColor;
+    color: $primaryColor;    
+    font-family: 'Garamond', 'serif';
+}
+
+.wrapper {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+@font-face {
+    font-family: 'game_of_thronesregular';
+    src: url('../fonts/gameofthrones-webfont.woff2') format('woff2'),
+         url('../fonts/gameofthrones-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.stark {
+    @include stark();
+}
+.lannister {
+    @include lannister();
+}
+.targaryen {
+    @include targaryen();
+}
+
+h1, h2, .letterSelector {
+    font-family: 'game_of_thronesregular', 'Garamond', serif;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: 2.4rem;
+    margin-bottom: 50px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+button {
+    border: none;
+    background: $tertiaryColor;
+    color: $secondaryColor;
+}
+
+.flex {
+    display: flex;
+}
+
+.visuallyhidden:not(:focus):not(:active) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}

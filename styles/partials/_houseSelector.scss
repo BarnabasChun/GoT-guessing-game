@@ -1,0 +1,50 @@
+.houseSelector {
+    margin: 40px 0;
+    @media (max-width: 635px) {
+        text-align: center;
+    }
+    ul {
+        @media (max-width: 635px) {
+            flex-direction: column;
+        }
+    }
+    li {
+        width: calc(25% - 15px);
+        margin-right: 20px;
+        &:last-child {
+            margin-right: 0;
+            border: 1px solid goldenrod;
+            p {
+                font-size: 2.4rem;
+                text-transform: uppercase;
+            }
+        }
+        @media (max-width: 635px) {
+            width: 100%;
+            margin-right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        &:hover {
+            transform: scale(1.2);
+            transition: transform 0.4s ease;
+        }
+    }
+    img {
+        width: 100%;
+        display: block;
+    }
+    button {
+        background: none;
+        padding: 0;
+    }
+    p {
+        color: $primaryColor;
+    }
+    a {
+        color: $primaryColor;
+        text-decoration: none;
+    }
+}

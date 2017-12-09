@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GoT Guessing Game</title>
+    <link href="https://fonts.googleapis.com/css?family=Spectral+SC:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header class="wrapper">
+        <h1>Game&nbsp of&nbsp Thrones&nbsp <br>Guessing Game</h1>
+        <div class="houseSelector">
+            <div class="wrapper">
+                <h3>To which house are you sworn to?</h3>
+                <ul class="houses flex">
+                    <li>
+                        <button id="stark" class="house">
+                            <img src="assets/house_stark.jpg" alt="">
+                        </button>
+                    </li>
+                    <li>
+                        <button id="lannister" class="house">
+                            <img src="assets/house_lannister.jpg" alt="">
+                        </button>
+                    </li>
+                    <li>
+                        <button id="targaryen" class="house">
+                            <img src="assets/house_targaryen.jpg" alt="">
+                        </button>
+                    </li>
+                    <li>
+                        <button id="brotherhoodWithoutBanners" class="house">
+                            <p>The Brotherhood Without Banners</p>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        <h2 class="messageText"></h2>
+        <p class="livesTracker"></p>
+        <h2 class="hiddenAnswer"></h2>
+    </header>
+
+    
+    
+    <ul class="letterSelector wrapper flex">
+        <!-- letters from A-Z -->
+    </ul>
+
+    <div class="gameOptions">
+        <div class="wrapper flex">
+            <form action="" name="wordGuess">
+                <label for="wordGuess" class="visuallyhidden">Dare to guess the entire word?</label>
+                <input type="text" id="wordGuess" placeholder="Guess a word.">
+            </form>
+            <div class="gameControls">
+                 <!-- <button id="letterHelp">Free Letter</button> -->
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+    <script src="scripts.js"></script>
+</body>
+</html>

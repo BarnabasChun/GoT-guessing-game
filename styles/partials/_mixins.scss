@@ -1,0 +1,37 @@
+$primaryFont: 'Game of Thrones', 'Garamond', serif;
+
+$primaryColor: #fff;
+$secondaryColor: #000;
+$tertiaryColor: goldenrod;
+$starkColor: slategrey;
+$lannisterColor: maroon;
+$targaryenColor: darkred;
+
+@mixin stark() {
+    background: $starkColor;
+    color: $primaryColor;
+    &:hover {
+        background: $primaryColor;
+        color: $starkColor;
+    }
+}
+
+@mixin lannister() {
+    background: $lannisterColor;
+    color: $tertiaryColor;
+    &:hover {
+        background: $tertiaryColor;
+        color: $lannisterColor;
+    }
+}
+
+@mixin targaryen() {
+    background: $secondaryColor;
+    color: $targaryenColor;
+    border: 1px solid white;
+    &:hover {
+        background: $targaryenColor;
+        color: $secondaryColor;
+        border: 1px solid black;
+    }
+}

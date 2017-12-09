@@ -1,0 +1,18 @@
+.openingScreen {
+    ul {
+        max-width: 200px;
+        margin: 0 auto;
+    }
+    li {
+        margin: 10px 0;
+    }
+    input, select {
+        width: 100%;
+    }
+    .difficultyLevel {
+        justify-content: center;
+    }
+    input[type="submit"], select {
+        border: none;
+    }
+}
