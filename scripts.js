@@ -1,5 +1,9 @@
 const game = {};
 
+game.easterEgg = () => {
+    var egg = new Egg("up,up,down,down,left,right,left,right,b,a", () => $('.houseSelector').show()).listen();
+}
+
 // GAME CONTROLS
 
     // create letters for user to click
@@ -246,7 +250,6 @@ const game = {};
             $('button').removeClass(game.houses[i]);
         }
         $('h2.messageText').hide();
-        $('.houseSelector').show();
         game.controls();
         game.randomWord();
         game.underScores();
@@ -274,6 +277,7 @@ game.events = function () {
     });
     game.letterGuess();
     game.letterHelp();
+    game.easterEgg();
     game.houseSelector();
     game.newGame();
 };
