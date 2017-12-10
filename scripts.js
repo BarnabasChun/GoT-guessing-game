@@ -5,6 +5,7 @@ game.easterEgg = () => {
 }
 
 game.keyboard = () => {    
+    game.lettersClicked = [];
     document.addEventListener("keydown", function (e) {
         // if the key pressed is a letter then set it to the value of letterClicked and check if the letter is in the answer
         if (e.keyCode >=65 && e.keyCode <=90 ) {
@@ -70,7 +71,7 @@ game.keyboard = () => {
                 // join both back together and display the new value 
                 game.hiddenAnswer = game.hiddenAnswer.join(' ');
                 game.answer = game.answer.join('');
-                $('h2.hiddenAnswer').html(game.hiddenAnswer.replace(/\s/g, '&nbsp&nbsp'));
+                $('h2.hiddenAnswer').html(game.hiddenAnswer);
                 // check if the 'free letter' has allowed the answer of the letters the user has guessed to match that of the answers
                 game.winCheck();
                 // remove the randomly selected letter from the array so it cannot be selected again
@@ -113,28 +114,16 @@ game.keyboard = () => {
     game.wordsArr = ['white walker', 'king slayer', 'mad king', 'onion knight', 'master of coin', 'valyrian steel', 'red wedding', 'iron throne', 'khaleesi', 'winter is coming', 'direwolf', 'dragon', 'winter is coming', 'hand of the king', 'faceless men', 'khal drogo', 'queen of dragons', 'winterfell', 'wildlings', 'the mountain', 'warg', 'hodor', 'greenseer', 'knight king', 'faith of the seven', 'braavos', 'greyscale', 'maester', 'sellsword', 'sons of the harpy', 'unsullied', 'turncloak', 'westeros', 'nymeria', 'grey wind', 'shaggydog', 'ghost', 'viserion', 'dance of dragons', 'song of fire and ice', 'drogon', 'rhaegal', 'jojen reed', 'brienne of tarth', 'casterly rock', 'castle black', 'crow', 'milk of the poppy', 'three eyed raven', 'wildfire', 'dragonglass', 'weirwood', 'high septon', 'red keep', 'harenhal', 'qarth', 'greyjoy rebellion', 'drowned god', 'children of the forest', 'first men', 'war of the five kings', 'the long knight', 'city watch', 'gold cloaks', 'kingsguard', 'mance rayder', 'iron bank', 'brotherhood without banners', 'lord of light', 'lightbringer', 'needle', 'iron islands', 'thoros of myr', 'the hound', 'dragonstone', 'melisandre', 'wight', 'grey worm', 'azor ahai', 'the citadel', 'ironborn', 'andals', 'petyr baelish', 'walder frey', 'jon snow', 'eddard stark', 'sansa stark', 'arya stark', 'lady stoneheart', 'bran stark', 'edmure tully', 'lyanna mormont', 'benjen stark', 'meera reed', 'tormund', 'davos seaworth', 'cersei lannister', 'jaime lannister', 'tyrion lannister', 'qyburn', 'ser bronn', 'tywin lannister', 'joffrey baratheon', 'tommen baratheon', 'myrcella baratheon', 'daenerys targaryen', 'rhaegar targaryen', 'varys', 'small council', 'yara greyjoy', 'reek', 'bastard', 'theon greyjoy', 'missandei', 'samwell tarly', 'gilly', 'podrick payne', 'dontos hollard', 'lyanna stark', 'rickard karstark', 'robb stark', 'king of the north', 'margaery tyrell', 'bend the knee', 'half man', 'craven', 'riverrun', 'oberyn martell', ];
 
     // function that returns a random index given an array of a certain length
-    game.randomIndexGenerator = function(arr) {
-        game.randIndex = Math.floor(Math.random() * arr.length);
-        return game.randIndex;
-    };
-
+    game.randomIndexGenerator = arr => game.randIndex = Math.floor(Math.random() * arr.length);
+ 
     // select a random word from the words array using a random index and replace any spaces with non-blank spaces
-    game.randomWord = function() {
-        game.answer = game.wordsArr[game.randomIndexGenerator(game.wordsArr)];
-        game.answer.replace(/\s/,'&nbsp&nbsp');
-        return game.answer;
-    };
-
-    game.noSpaces = function(str) {
-        return str.replace(/\s/g, '');
-    };
+    game.randomWord = () => game.answer = game.wordsArr[game.randomIndexGenerator(game.wordsArr)];
+        
+    game.noSpaces = str => str.replace(/\s/g, '');
 
     // replace all the characters in a string with underscores
-    game.underScores = function() {
-        game.hiddenAnswer = game.answer.replace(/[a-zA-Z]/g, "_ ");
-        return game.hiddenAnswer;
-    };
-
+    game.underScores = () => game.hiddenAnswer = game.answer.replace(/[a-zA-Z]/g, "_");
+    
     game.noDuplicates = function(str) {
         // convert the string to an array so it can be filtered through 
         // filter the array and return items to the array if the index of their first instance matches the current index
@@ -199,13 +188,17 @@ game.keyboard = () => {
 // WORD GUESSING
 
     game.loseLives = function () {
-        if (game.livesCount > 0) {
-            game.livesCount -= 1;
-            // console.log(game.livesCount);
-            $('p.livesTracker').html(`You have <span>${game.livesCount}</span> lives left`);
-            if (game.livesCount === 0) {
-                $('h2.hiddenAnswer').html(game.answer.replace(/\s/g, '&nbsp&nbsp')).hide(2000, 'linear');
-                $('h2.messageText').html('valar morghulis').show(1000, 'linear');
+    // create an array to hold all the letters the user has already entered as guesses
+    // if the user has not entered the letter before, then add the letter to the array and check if the letter is in the answer 
+        if (!game.lettersClicked.includes(game.letterClicked)) {
+            game.lettersClicked.push(game.letterClicked);
+            if (game.livesCount > 0) {
+                game.livesCount -= 1;
+                $('p.livesTracker').html(`You have <span>${game.livesCount}</span> lives left`);
+                if (game.livesCount === 0) {
+                    $('h2.hiddenAnswer').html(game.answer.replace(/\s/g, '&nbsp&nbsp')).hide(2000, 'linear');
+                    $('h2.messageText').html('valar morghulis').show(1000, 'linear');
+                }
             }
         }
     };
@@ -265,6 +258,7 @@ game.keyboard = () => {
 // The counter tracking the number of lives and free letters will be called and reset 
 
     game.gameStart = function() {
+        game.lettersClicked = [];
         for (let i = 0; i < game.houses.length; i++) {
             $('button').removeClass(game.houses[i]);
         }
@@ -281,7 +275,6 @@ game.keyboard = () => {
         // on click of the button with the id new game, reset all the functions on the page
         $('body').on('click','button#newGame', function(){
             game.gameStart();
-            // $('.houseSelector').hide();
             game.letterHelp();
         });
     }
