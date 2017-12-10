@@ -4,10 +4,19 @@ game.easterEgg = () => {
     var egg = new Egg("up,up,down,down,left,right,left,right,b,a", () => $('.houseSelector').show()).listen();
 }
 
-game.keyboard = () => {
+game.keyboard = () => {    
+    console.log(document.querySelectorAll('.letter'));
     document.addEventListener("keydown", function (e) {
-        game.letterClicked = String.fromCharCode(e.keyCode);
-        game.correctLetterGuess();
+        // if the key pressed is a letter then set it to the value of letterClicked and check if the letter is in the answer
+        if (e.keyCode >=65 && e.keyCode <=90 ) {
+            game.letterClicked = String.fromCharCode(e.keyCode);
+            game.correctLetterGuess();
+            for (i = 0; i < document.querySelectorAll('.letter').length; i++) {
+                if (document.querySelectorAll('.letter')[i].innerText === game.letterClicked) {
+                    document.querySelectorAll('.letter')[i].hidden = true;
+                }
+            }
+        }
     });
 }
 
