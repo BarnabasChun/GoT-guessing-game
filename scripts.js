@@ -259,6 +259,8 @@ const game = {};
         // on click of the button with the id new game, reset all the functions on the page
         $('body').on('click','button#newGame', function(){
             game.gameStart();
+            $('.houseSelector').hide();
+            game.letterHelp();
         });
     }
 
