@@ -5,12 +5,12 @@ game.easterEgg = () => {
 }
 
 game.keyboard = () => {    
-    console.log(document.querySelectorAll('.letter'));
     document.addEventListener("keydown", function (e) {
         // if the key pressed is a letter then set it to the value of letterClicked and check if the letter is in the answer
         if (e.keyCode >=65 && e.keyCode <=90 ) {
             game.letterClicked = String.fromCharCode(e.keyCode);
             game.correctLetterGuess();
+            // if a button's text matches that of the letter pressed hide it from the user so they will know not to select it again
             for (i = 0; i < document.querySelectorAll('.letter').length; i++) {
                 if (document.querySelectorAll('.letter')[i].innerText === game.letterClicked) {
                     document.querySelectorAll('.letter')[i].hidden = true;
@@ -199,12 +199,14 @@ game.keyboard = () => {
 // WORD GUESSING
 
     game.loseLives = function () {
-        game.livesCount -= 1;
-        // console.log(game.livesCount);
-        $('p.livesTracker').html(`You have <span>${game.livesCount}</span> lives left`);
-        if (game.livesCount === 0) {
-            $('h2.hiddenAnswer').html(game.answer.replace(/\s/g, '&nbsp&nbsp')).hide(2000, 'linear');
-            $('h2.messageText').html('valar morghulis').show(1000, 'linear');
+        if (game.livesCount > 0) {
+            game.livesCount -= 1;
+            // console.log(game.livesCount);
+            $('p.livesTracker').html(`You have <span>${game.livesCount}</span> lives left`);
+            if (game.livesCount === 0) {
+                $('h2.hiddenAnswer').html(game.answer.replace(/\s/g, '&nbsp&nbsp')).hide(2000, 'linear');
+                $('h2.messageText').html('valar morghulis').show(1000, 'linear');
+            }
         }
     };
 
