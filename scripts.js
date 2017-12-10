@@ -79,6 +79,7 @@ const game = {};
             }
             // then hide the 'house selector' from the user
             $('.houseSelector').hide(800, 'linear');
+            $('.game').show();
         })
     };
 

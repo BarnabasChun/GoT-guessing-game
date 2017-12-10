@@ -140,6 +140,9 @@ body {
   color: #fff;
   font-family: 'Garamond', 'serif'; }
 
+main {
+  padding-bottom: 60px; }
+
 .wrapper {
   max-width: 980px;
   margin: 0 auto; }
@@ -190,6 +193,9 @@ button {
   background: goldenrod;
   color: #000; }
 
+.game {
+  display: none; }
+
 .flex {
   display: -webkit-box;
   display: -webkit-flex;
@@ -217,7 +223,8 @@ header {
     font-weight: normal;
     font-style: normal;
     margin: 0 0 40px;
-    padding-top: 80px; }
+    padding-top: 80px;
+    line-height: 1.5; }
     @media (max-width: 600px) {
       header h1 {
         font-size: 4.0rem; } }
@@ -255,10 +262,14 @@ header {
     border-radius: 5px;
     font-size: 2.4rem; }
     .letterSelector button:hover {
-      color: white;
-      -webkit-transition: color 0.4s ease;
-      -o-transition: color 0.4s ease;
-      transition: color 0.4s ease; }
+      -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      transform: scale(1.1);
+      -webkit-transition: -webkit-transform 0.4s ease;
+      transition: -webkit-transform 0.4s ease;
+      -o-transition: transform 0.4s ease;
+      transition: transform 0.4s ease;
+      transition: transform 0.4s ease, -webkit-transform 0.4s ease; }
   .letterSelector #newGame {
     width: 200px;
     height: 50px; }
@@ -363,9 +374,11 @@ header {
     margin-right: 20px; }
     .houseSelector li:last-child {
       margin-right: 0;
-      border: 1px solid goldenrod; }
+      border: 1px solid goldenrod;
+      padding: 10px; }
       .houseSelector li:last-child p {
         font-size: 2.4rem;
+        line-height: 1.5;
         text-transform: uppercase; }
     @media (max-width: 635px) {
       .houseSelector li {
@@ -384,7 +397,26 @@ header {
         -webkit-align-items: center;
         -ms-flex-align: center;
         align-items: center;
-        margin-bottom: 20px; } }
+        margin-bottom: 20px; }
+        .houseSelector li:last-child {
+          border: none; }
+        .houseSelector li .container {
+          max-width: 336px;
+          height: 398px;
+          border: 1px solid goldenrod;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center; } }
     .houseSelector li:hover {
       -webkit-transform: scale(1.2);
       -ms-transform: scale(1.2);
@@ -399,7 +431,8 @@ header {
     display: block; }
   .houseSelector button {
     background: none;
-    padding: 0; }
+    padding: 0;
+    height: 100%; }
   .houseSelector p {
     color: #fff; }
   .houseSelector a {

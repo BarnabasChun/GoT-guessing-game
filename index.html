@@ -32,38 +32,39 @@
                     </li>
                     <li>
                         <button id="brotherhoodWithoutBanners" class="house">
-                            <p>The Brotherhood Without Banners</p>
+                            <div class="container">
+                                <p>The Brotherhood Without Banners</p>
+                            </div>
                         </button>
                     </li>
                 </ul>
             </div>
         </div>
         </div>
-        <h2 class="messageText"></h2>
-        <p class="livesTracker"></p>
-        <h2 class="hiddenAnswer"></h2>
+        <div class="game">
+            <h2 class="messageText"></h2>
+            <p class="livesTracker"></p>
+            <h2 class="hiddenAnswer"></h2>
+        </div>
     </header>
 
+    <main class="game">
+        <ul class="letterSelector wrapper flex">
+            <!-- letters from A-Z -->
+        </ul>
     
-    
-    <ul class="letterSelector wrapper flex">
-        <!-- letters from A-Z -->
-    </ul>
-
-    <div class="gameOptions">
-        <div class="wrapper flex">
-            <form action="" name="wordGuess">
-                <label for="wordGuess" class="visuallyhidden">Dare to guess the entire word?</label>
-                <input type="text" id="wordGuess" placeholder="Guess a word.">
-            </form>
-            <div class="gameControls">
-                 <!-- <button id="letterHelp">Free Letter</button> -->
+        <div class="gameOptions">
+            <div class="wrapper flex">
+                <form action="" name="wordGuess">
+                    <label for="wordGuess" class="visuallyhidden">Dare to guess the entire word?</label>
+                    <input type="text" id="wordGuess" placeholder="Guess a word.">
+                </form>
+                <div class="gameControls">
+                     <!-- <button id="letterHelp">Free Letter</button> -->
+                </div>
             </div>
         </div>
-    </div>
-
-    
-
+    </main>
     <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
     <script src="scripts.js"></script>
 </body>
