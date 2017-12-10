@@ -1,6 +1,7 @@
 .houseSelector {
     margin: 40px 0;
     display: none;
+    // hide the house selectors (to be displayed if the user inputs the easter egg keyboard combo)
     @media (max-width: 635px) {
         text-align: center;
     }

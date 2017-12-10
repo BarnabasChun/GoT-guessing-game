@@ -4,6 +4,13 @@ game.easterEgg = () => {
     var egg = new Egg("up,up,down,down,left,right,left,right,b,a", () => $('.houseSelector').show()).listen();
 }
 
+game.keyboard = () => {
+    document.addEventListener("keydown", function (e) {
+        game.letterClicked = String.fromCharCode(e.keyCode);
+        game.correctLetterGuess();
+    });
+}
+
 // GAME CONTROLS
 
     // create letters for user to click
@@ -173,10 +180,11 @@ game.easterEgg = () => {
 
     game.letterGuess = function() {
         $('ul.letterSelector').on('click', 'button', function(){
-            game.letterClicked = $(this).text()
+            // get the text from the input clicked and check if the letter is in the answer
+            game.letterClicked = $(this).text();
             game.correctLetterGuess();
             $(this).fadeOut('400 milliseconds', 'swing');
-        })
+        });
     };
 
 // WORD GUESSING
@@ -275,6 +283,7 @@ game.events = function () {
         game.correctWordGuess();
         $('input').val('');
     });
+    game.keyboard();
     game.letterGuess();
     game.letterHelp();
     game.easterEgg();
@@ -289,6 +298,4 @@ game.init = function() {
     game.events();
 };
 
-$(function(){
-    game.init();
-});
+$(game.init());
