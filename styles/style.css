@@ -230,8 +230,7 @@ header {
     width: 100%;
     word-wrap: break-word;
     text-transform: uppercase;
-    margin: 0;
-    letter-spacing: 15px; }
+    margin: 0; }
   header p {
     font-size: 2.0rem; }
     header p .livesTracker {
