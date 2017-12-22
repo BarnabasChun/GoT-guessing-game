@@ -237,6 +237,16 @@ header {
       margin: 10px 0; }
   header span {
     color: goldenrod; }
+  header .hiddenAnswer {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap; }
+  header .word {
+    margin-right: 20px; }
+  header .letter {
+    margin-right: 5px; }
 
 .letterSelector {
   margin: 40px auto;

@@ -120,22 +120,27 @@ game.randomIndexGenerator = arr => game.randIndex = Math.floor(Math.random() * a
 // select a random word from the words array using a random index and replace any spaces with non-blank spaces
 game.randomWord = function () {
     game.answer = game.wordsArr[game.randomIndexGenerator(game.wordsArr)];
-    game.answer.replace(/\s/, '&nbsp&nbsp');
+    // game.answer.replace(/\s/, '&nbsp&nbsp');
     return game.answer;
 };
 
-// game.displayedWord = () => {
-//     game.randomWord();
-//     game.displayedWord = game.answer.split(' ').map(word => word.split(''));
-//     game.displayedWord.forEach(word => {
-//         $('.displayedWord').append(`<div><div>`)
-//     })
-// }
+game.displayedWord = () => {
+    
+
+    game.randomWord();
+    game.hiddenAnswer = game.answer.split(' ').map(word => word.split(''));
+    game.displayedWord = game.hiddenAnswer
+        .map(word => 
+        word.map(letter => `<div class="letter">__</div>`));
+    game.displayedWord = game.displayedWord.map(word => word.join(''));
+    const displayedWord = game.displayedWord.map(word => `<div class="word flex">${word}</div>`);
+    $('.hiddenAnswer').html(displayedWord);
+}
 
 game.noSpaces = str => str.replace(/\s/g, '');
 
 // replace all the characters in a string with underscores
-game.underScores = () => game.hiddenAnswer = game.answer.replace(/[a-zA-Z]/g, "_ ");
+// game.underScores = () => game.hiddenAnswer = game.answer.replace(/[a-zA-Z]/g, "_ ");
 
 game.noDuplicates = function (str) {
     // convert the string to an array so it can be filtered through 
@@ -280,8 +285,8 @@ game.gameStart = function () {
     $('h2.messageText').hide();
     game.controls();
     game.randomWord();
-    game.underScores();
-    $('h2.hiddenAnswer').html(game.hiddenAnswer.replace(/\s/g, '&nbsp&nbsp')).show();
+    game.displayedWord();
+    // $('h2.hiddenAnswer').html(game.hiddenAnswer.replace(/\s/g, '&nbsp&nbsp')).show();
     game.randomLetterArr = game.answer.replace(/\s/g, '').split('');
     game.counter();
 };

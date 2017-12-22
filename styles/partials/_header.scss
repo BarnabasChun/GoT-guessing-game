@@ -29,4 +29,14 @@ header {
     span {
         color: $tertiaryColor;
     }
+    .hiddenAnswer {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .word {
+        margin-right: 20px;
+    }
+    .letter {
+        margin-right: 5px;
+    }
 }
