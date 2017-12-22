@@ -1,10 +1,7 @@
 const game = {};
 game.houses = ['stark', 'lannister', 'targaryen'];
-game.lettersClicked = new Set();
 
-game.easterEgg = () => {
-    const egg = new Egg("up,up,down,down,left,right,left,right,b,a", () => $('.houseSelector').show()).listen();
-}
+game.easterEgg = () => {const egg = new Egg("up,up,down,down,left,right,left,right", () => $('.houseSelector').show()).listen();};
 
 game.keyboard = () => {
     function clickLetter(e) {
@@ -24,7 +21,8 @@ game.keyboard = () => {
         }
     }
     document.addEventListener("keydown", clickLetter);
-}
+    $('#wordGuess').on('click', () => document.removeEventListener('keydown', clickLetter));
+};
 
 // GAME CONTROLS
 
@@ -50,7 +48,6 @@ game.randomLetterGenerator = () => game.randomLetter = game.randomLetterArr[game
 
 game.letterHelp = function () {
     $('button#letterHelp').on('click', function () {
-        console.log('test');
         game.randomLetterGenerator();
         // if the text from the li matches the random letter have it fade out and removed so the user cannot select it again
         for (let i = 1; i <= game.alphabet.length; i++) {
@@ -69,12 +66,14 @@ game.letterHelp = function () {
             });
             
             game.winCheck();
+
             // remove the randomly selected letter from the array so it cannot be selected again
             for (let i = 0; i < game.randomLetterArr.length; i++) {
                 if (game.randomLetter === game.randomLetterArr[i]) {
                     game.randomLetterArr.splice(i, 1);
                 }
             }
+
             alert(`You have ${game.freeLettersCount} free letter(s) left`);
             // once the user has used up all their 'free letters' remove the option
             if (game.freeLettersCount === 0) {
@@ -83,7 +82,6 @@ game.letterHelp = function () {
         }
     });
 };
-
 
 game.houseSelector = function () {
     $('button.house').on('click', function () {
@@ -95,11 +93,10 @@ game.houseSelector = function () {
         }
         // then hide the 'house selector' from the user
         $('.houseSelector').hide(800, 'linear');
-        $('.game').show();
     })
 };
 
-game.controls = function () {
+game.controls = () => {
     game.clickInputs();
     game.buttons();
 }
@@ -135,7 +132,7 @@ game.noDuplicates = function (str) {
 
 // LIVES & FREE LETTERS COUNT
 
-game.counter = function () {
+game.counter = () => {
     // lives and number of 'free letters' will depend on the length of the answer 
     // to have a uniform measure, the number of spaces must be removed and any duplicate letters should be eliminated
     game.wordMeasure = game.noSpaces(game.noDuplicates(game.answer)).length;
@@ -159,7 +156,7 @@ game.counter = function () {
 
 // LETTER GUESSING
 
-game.correctLetterGuess = function () {
+game.correctLetterGuess = () => {
     const answerLetters = document.querySelectorAll('.answerLetter');
     answerLetters.forEach(letter => {
         if (letter.dataset.letter === game.letterClicked.toLowerCase()) {
@@ -167,7 +164,9 @@ game.correctLetterGuess = function () {
         }
     })
     if (! game.answer.includes(game.letterClicked.toLowerCase())) {
-        game.loseLives();
+        if (!game.lettersClicked.has(game.letterClicked)) {
+            game.loseLives();
+        }
     }
     // after checking if the letter was correct on not add the letter clicked to the set
     game.lettersClicked.add(game.letterClicked);
@@ -185,23 +184,19 @@ game.letterGuess = function () {
 
 // WORD GUESSING
 
-game.loseLives = function () {
-    // create an array to hold all the letters the user has already entered as guesses
-    // if the user has not entered the letter before, then add the letter to the array and check if the letter is in the answer potentialy reducing lives by 1
-    if (!game.lettersClicked.has(game.letterClicked)) {
-        if (game.livesCount > 0) {
-            game.livesCount -= 1;
-            $('p.livesTracker').html(`You have <span>${game.livesCount}</span> lives left`);
-            if (game.livesCount === 0) {
-                $('h2.hiddenAnswer').html(game.answer.replace(/\s/g, '&nbsp&nbsp')).hide(2000, 'linear');
-                $('h2.messageText').html('valar morghulis').show(1000, 'linear');
-                console.log('lose');
-            }
+game.loseLives = () => {
+    // if the user has not entered the letter before, then check if the letter is in the answer potentialy reducing lives by 1
+    if (game.livesCount > 0) {
+        game.livesCount -= 1;
+        $('p.livesTracker').html(`You have <span>${game.livesCount}</span> lives left`);
+        if (game.livesCount === 0) {
+            $('h2.hiddenAnswer').html(game.answer.replace(/\s/g, '&nbsp&nbsp')).hide(2000, 'linear');
+            $('h2.messageText').html('valar morghulis').show(1000, 'linear');
         }
     }
 };
 
-game.guessLengthCheck = function () {
+game.guessLengthCheck = () => {
     game.wordLengthDiff = game.answer.length - game.wordGuess.length;
     if (game.wordLengthDiff > 0) {
         alert(`Your guess was ${game.wordLengthDiff} letters too short. Try again.`);
@@ -210,7 +205,7 @@ game.guessLengthCheck = function () {
     }
 };
 
-game.correctWordGuess = function () {
+game.correctWordGuess = () => {
     game.wordGuess = $('input#wordGuess').val();
     if (/^[a-zA-Z ]{1,}$/.exec(game.wordGuess)) {
         if (game.wordGuess.length === game.answer.length) {
@@ -260,9 +255,7 @@ game.gameStart = function () {
     }
     $('h2.messageText').hide();
     game.controls();
-    game.randomWord();
     game.displayedWord();
-    $('.hiddenAnswer').html(game.displayedWord);
     game.randomLetterArr = game.answer.replace(/\s/g, '').split('');
     game.counter();
 };
