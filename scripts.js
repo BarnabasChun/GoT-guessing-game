@@ -1,14 +1,16 @@
 const game = {};
+game.houses = ['stark', 'lannister', 'targaryen'];
 game.lettersClicked = new Set();
 
 game.easterEgg = () => {
-    var egg = new Egg("up,up,down,down,left,right,left,right,b,a", () => $('.houseSelector').show()).listen();
+    const egg = new Egg("up,up,down,down,left,right,left,right,b,a", () => $('.houseSelector').show()).listen();
 }
 
 game.keyboard = () => {
     function clickLetter(e) {
         // if the key pressed is a letter then set it to the value of letterClicked and check if the letter is in the answer
         if (game.livesCount > 0) {
+            // only listen for letters
             if (e.keyCode >= 65 && e.keyCode <= 90) {
                 game.letterClicked = String.fromCharCode(e.keyCode);
                 game.correctLetterGuess();
@@ -21,7 +23,6 @@ game.keyboard = () => {
             }  
         }
     }
-    
     document.addEventListener("keydown", clickLetter);
 }
 
@@ -33,7 +34,7 @@ game.clickInputs = function () {
     game.alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     // create a list item for each letter then append it onto the ul with the class letter selector
     for (let i = 0; i < game.alphabet.length; i++) {
-        const letter = $('<li>').append($('<button>').addClass('letter').text(`${game.alphabet[i]}`));
+        const letter = `<li><button class="letter">${game.alphabet[i]}</button></li>`
         $('ul.letterSelector').append(letter);
     }
 }
@@ -41,15 +42,15 @@ game.clickInputs = function () {
 game.buttons = function () {
     const letterHelpButton = '<button id="letterHelp">Free Letter</button>';
     const newGameButton = '<button id="newGame">New Game</button>';
-    $('.gameControls').html(letterHelpButton);
-    $('.gameControls').append(newGameButton);
+    $('.gameControls').html(letterHelpButton).append(newGameButton);
 }
 
 // selects a random letter from the answer 
-game.randomLetterGenerator = () =>game.randomLetter = game.randomLetterArr[game.randomIndexGenerator(game.randomLetterArr)];
+game.randomLetterGenerator = () => game.randomLetter = game.randomLetterArr[game.randomIndexGenerator(game.randomLetterArr)];
 
 game.letterHelp = function () {
     $('button#letterHelp').on('click', function () {
+        console.log('test');
         game.randomLetterGenerator();
         // if the text from the li matches the random letter have it fade out and removed so the user cannot select it again
         for (let i = 1; i <= game.alphabet.length; i++) {
@@ -60,20 +61,13 @@ game.letterHelp = function () {
         // if the user still has 'free letters' remaining decrease the number available by 1
         if (game.freeLettersCount > 0) {
             game.freeLettersCount -= 1;
-            // split the hidden answer which is currently a string into an array so its individual indices can be accesed and manipulated
-            game.hiddenAnswer = game.hiddenAnswer.split(' ');
-            game.answer = game.answer.split('');
-            // if a letter in the answer matches the random letter then change the matching index in the hidden answer
-            for (let i = 0; i < game.answer.length; i++) {
-                if (game.answer[i] === game.randomLetter) {
-                    game.hiddenAnswer[i] = game.randomLetter;
+            const answerLetters = document.querySelectorAll('.answerLetter');
+            answerLetters.forEach(letter => {
+                if (letter.dataset.letter === game.randomLetter) {
+                    letter.innerText = letter.dataset.letter;
                 }
-            }
-            // join both back together and display the new value 
-            game.hiddenAnswer = game.hiddenAnswer.join(' ');
-            game.answer = game.answer.join('');
-            $('h2.hiddenAnswer').html(game.hiddenAnswer.replace(/\s/g, '&nbsp&nbsp'));
-            // check if the 'free letter' has allowed the answer of the letters the user has guessed to match that of the answers
+            });
+            
             game.winCheck();
             // remove the randomly selected letter from the array so it cannot be selected again
             for (let i = 0; i < game.randomLetterArr.length; i++) {
@@ -90,7 +84,7 @@ game.letterHelp = function () {
     });
 };
 
-game.houses = ['stark', 'lannister', 'targaryen'];
+
 game.houseSelector = function () {
     $('button.house').on('click', function () {
         // upon clicking one of the houses, if the id of that button matches with a certain house add that class to all buttons so the relevant styles will be applied
@@ -133,17 +127,10 @@ game.displayedWord = () => {
 
 game.noSpaces = str => str.replace(/\s/g, '');
 
-// replace all the characters in a string with underscores
-// game.underScores = () => game.hiddenAnswer = game.answer.replace(/[a-zA-Z]/g, "_ ");
-
 game.noDuplicates = function (str) {
-    // convert the string to an array so it can be filtered through 
-    // filter the array and return items to the array if the index of their first instance matches the current index
-    // as a result, since duplicates will not have the same index of the first instance, they will not be included
-    // at the end join the array back into a string
-    return str.split('').filter(function (arrItem, i, arr) {
-        return arr.indexOf(arrItem) === i;
-    }).join('');
+    const strArr = str.split('');
+    let unqiqueLetters = new Set(strArr);
+    return [... unqiqueLetters].join('');
 };
 
 // LIVES & FREE LETTERS COUNT
@@ -248,6 +235,8 @@ game.correctWordGuess = function () {
 game.winCheck = function () {
     const answerLetters = [...document.querySelectorAll('.answerLetter')];
     const win = answerLetters.every(letter => letter.innerText !== '__');
+    // answersLetters is removed from the DOM upon a lose leaving the array empty
+    // so to prevent a win to be triggered because the letters are not "__" add the condition that the array be not empty
     if (win && answerLetters.length !== 0) game.winSequence();
 };
 
