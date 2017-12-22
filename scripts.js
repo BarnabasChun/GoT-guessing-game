@@ -1,16 +1,17 @@
 const game = {};
+game.lettersClicked = new Set();
 
 game.easterEgg = () => {
     var egg = new Egg("up,up,down,down,left,right,left,right,b,a", () => $('.houseSelector').show()).listen();
 }
 
 game.keyboard = () => {
-    game.lettersClicked = [];
     function clickLetter(e) {
         // if the key pressed is a letter then set it to the value of letterClicked and check if the letter is in the answer
         if (game.livesCount > 0) {
             if (e.keyCode >= 65 && e.keyCode <= 90) {
                 game.letterClicked = String.fromCharCode(e.keyCode);
+                game.lettersClicked.add(game.letterClicked);
                 game.correctLetterGuess();
                 // if a button's text matches that of the letter pressed hide it from the user so they will know not to select it again
                 for (i = 0; i < document.querySelectorAll('.letter').length; i++) {
@@ -129,7 +130,7 @@ game.displayedWord = () => {
         .map(word => word.join(''))
         .map(word => `<div class="word flex">${word}</div>`);
     $('.hiddenAnswer').html(game.displayedWord);
-}
+};
 
 game.noSpaces = str => str.replace(/\s/g, '');
 
@@ -179,25 +180,18 @@ game.correctLetterGuess = function () {
             letter.innerText = letter.dataset.letter;
         }
     })
-    // if (game.answer.includes(game.letterClicked.toLowerCase())) {
-    //     game.hiddenAnswer = game.hiddenAnswer.split(' ');
-    //     for (let i = 0; i < game.answer.length; i++) {
-    //         if (game.answer[i] === game.letterClicked.toLowerCase()) {
-    //             game.hiddenAnswer[i] = game.letterClicked.toLowerCase();
-    //         }
-    //     }
-    //     game.hiddenAnswer = game.hiddenAnswer.join(' ');
-    //     $('h2.hiddenAnswer').html(game.hiddenAnswer.replace(/\s/g, '&nbsp&nbsp'));
-    //     game.winCheck();
-    // } else {
-    //     game.loseLives();
-    // }
+    if (! game.answer.includes(game.letterClicked.toLowerCase())) {
+        game.loseLives();
+        console.log('wtf');
+    }
+    game.winCheck();
 };
 
 game.letterGuess = function () {
     $('ul.letterSelector').on('click', 'button', function () {
         // get the text from the input clicked and check if the letter is in the answer
         game.letterClicked = $(this).text();
+        game.lettersClicked.add(game.letterClicked);
         game.correctLetterGuess();
         $(this).fadeOut('400 milliseconds', 'swing');
     });
@@ -208,11 +202,9 @@ game.letterGuess = function () {
 game.loseLives = function () {
     // create an array to hold all the letters the user has already entered as guesses
     // if the user has not entered the letter before, then add the letter to the array and check if the letter is in the answer potentialy reducing lives by 1
-    if (!game.lettersClicked.includes(game.letterClicked)) {
-        game.lettersClicked.push(game.letterClicked);
+    if (!game.lettersClicked.has(game.letterClicked)) {
         if (game.livesCount > 0) {
             game.livesCount -= 1;
-            // console.log(game.livesCount);
             $('p.livesTracker').html(`You have <span>${game.livesCount}</span> lives left`);
             if (game.livesCount === 0) {
                 $('h2.hiddenAnswer').html(game.answer.replace(/\s/g, '&nbsp&nbsp')).hide(2000, 'linear');
@@ -254,13 +246,17 @@ game.correctWordGuess = function () {
 // GAME SCENARIOS 
 
 game.winCheck = function () {
-    if (game.noSpaces(game.hiddenAnswer) === game.noSpaces(game.answer)) {
-        // the player wins if all the letters guessed together match the answer
-        // to compare the user's guessed answer vs. the answer the two need to have comparable values
-        // the guessed answer is displayed with spaces in between each letter, so these must be removed for an apples-to-apples comparison
-        // with all spaces removed for the guessed answer, the answer also needs its spaces removed
-        game.winSequence();
-    }
+    const answerLetters = [...document.querySelectorAll('.answerLetter')];
+    const win = answerLetters.every(letter => letter.innerText !== '__');
+    if (win) game.winSequence();
+
+    // if (game.noSpaces(game.hiddenAnswer) === game.noSpaces(game.answer)) {
+    //     // the player wins if all the letters guessed together match the answer
+    //     // to compare the user's guessed answer vs. the answer the two need to have comparable values
+    //     // the guessed answer is displayed with spaces in between each letter, so these must be removed for an apples-to-apples comparison
+    //     // with all spaces removed for the guessed answer, the answer also needs its spaces removed
+    //     game.winSequence();
+    // }
 };
 
 game.winSequence = function () {
@@ -277,7 +273,7 @@ game.winSequence = function () {
 // The counter tracking the number of lives and free letters will be called and reset 
 
 game.gameStart = function () {
-    game.lettersClicked = [];
+    game.lettersClicked = new Set();
     for (let i = 0; i < game.houses.length; i++) {
         $('button').removeClass(game.houses[i]);
     }
