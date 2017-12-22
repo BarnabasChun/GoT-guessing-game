@@ -118,23 +118,17 @@ game.wordsArr = ['white walker', 'king slayer', 'mad king', 'onion knight', 'mas
 game.randomIndexGenerator = arr => game.randIndex = Math.floor(Math.random() * arr.length);
 
 // select a random word from the words array using a random index and replace any spaces with non-blank spaces
-game.randomWord = function () {
-    game.answer = game.wordsArr[game.randomIndexGenerator(game.wordsArr)];
-    // game.answer.replace(/\s/, '&nbsp&nbsp');
-    return game.answer;
-};
-
-game.displayedWord = () => {
+game.randomWord = () => game.answer = game.wordsArr[game.randomIndexGenerator(game.wordsArr)];
     
-
+game.displayedWord = () => {
     game.randomWord();
-    game.hiddenAnswer = game.answer.split(' ').map(word => word.split(''));
-    game.displayedWord = game.hiddenAnswer
-        .map(word => 
-        word.map(letter => `<div class="letter" data-letter=${letter}>__</div>`));
-    game.displayedWord = game.displayedWord.map(word => word.join(''));
-    const displayedWord = game.displayedWord.map(word => `<div class="word flex">${word}</div>`);
-    $('.hiddenAnswer').html(displayedWord);
+    const splitAnswer = game.answer.split(' ').map(word => word.split(''));
+    game.displayedWord = splitAnswer
+        .map(word => word
+        .map(letter => `<div class="answerLetter" data-letter=${letter}>__</div>`))
+        .map(word => word.join(''))
+        .map(word => `<div class="word flex">${word}</div>`);
+    $('.hiddenAnswer').html(game.displayedWord);
 }
 
 game.noSpaces = str => str.replace(/\s/g, '');
@@ -179,19 +173,25 @@ game.counter = function () {
 // LETTER GUESSING
 
 game.correctLetterGuess = function () {
-    if (game.answer.includes(game.letterClicked.toLowerCase())) {
-        game.hiddenAnswer = game.hiddenAnswer.split(' ');
-        for (let i = 0; i < game.answer.length; i++) {
-            if (game.answer[i] === game.letterClicked.toLowerCase()) {
-                game.hiddenAnswer[i] = game.letterClicked.toLowerCase();
-            }
+    const answerLetters = document.querySelectorAll('.answerLetter');
+    answerLetters.forEach(letter => {
+        if (letter.dataset.letter === game.letterClicked.toLowerCase()) {
+            letter.innerText = letter.dataset.letter;
         }
-        game.hiddenAnswer = game.hiddenAnswer.join(' ');
-        $('h2.hiddenAnswer').html(game.hiddenAnswer.replace(/\s/g, '&nbsp&nbsp'));
-        game.winCheck();
-    } else {
-        game.loseLives();
-    }
+    })
+    // if (game.answer.includes(game.letterClicked.toLowerCase())) {
+    //     game.hiddenAnswer = game.hiddenAnswer.split(' ');
+    //     for (let i = 0; i < game.answer.length; i++) {
+    //         if (game.answer[i] === game.letterClicked.toLowerCase()) {
+    //             game.hiddenAnswer[i] = game.letterClicked.toLowerCase();
+    //         }
+    //     }
+    //     game.hiddenAnswer = game.hiddenAnswer.join(' ');
+    //     $('h2.hiddenAnswer').html(game.hiddenAnswer.replace(/\s/g, '&nbsp&nbsp'));
+    //     game.winCheck();
+    // } else {
+    //     game.loseLives();
+    // }
 };
 
 game.letterGuess = function () {
@@ -277,7 +277,6 @@ game.winSequence = function () {
 // The counter tracking the number of lives and free letters will be called and reset 
 
 game.gameStart = function () {
-    // game.displayedWord();
     game.lettersClicked = [];
     for (let i = 0; i < game.houses.length; i++) {
         $('button').removeClass(game.houses[i]);
@@ -286,7 +285,7 @@ game.gameStart = function () {
     game.controls();
     game.randomWord();
     game.displayedWord();
-    // $('h2.hiddenAnswer').html(game.hiddenAnswer.replace(/\s/g, '&nbsp&nbsp')).show();
+    $('.hiddenAnswer').html(game.displayedWord);
     game.randomLetterArr = game.answer.replace(/\s/g, '').split('');
     game.counter();
 };
@@ -295,7 +294,6 @@ game.newGame = function () {
     // on click of the button with the id new game, reset all the functions on the page
     $('body').on('click', 'button#newGame', function () {
         game.gameStart();
-        // $('.houseSelector').hide();
         game.letterHelp();
     });
 }

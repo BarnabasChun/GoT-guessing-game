@@ -245,8 +245,8 @@ header {
     flex-wrap: wrap; }
   header .word {
     margin-right: 20px; }
-  header .letter {
-    margin-right: 5px; }
+  header .answerLetter {
+    margin-right: 10px; }
 
 .letterSelector {
   margin: 40px auto;
