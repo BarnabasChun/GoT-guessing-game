@@ -111,7 +111,7 @@ game.randomIndexGenerator = arr => game.randIndex = Math.floor(Math.random() * a
 // select a random word from the words array using a random index and replace any spaces with non-blank spaces
 game.randomWord = () => game.answer = game.wordsArr[game.randomIndexGenerator(game.wordsArr)];
     
-game.displayedWord = () => {
+game.hiddenAnswer = () => {
     game.randomWord();
     const splitAnswer = game.answer.split(' ').map(word => word.split(''));
     game.displayedWord = splitAnswer
@@ -246,8 +246,8 @@ game.gameStart = function () {
         $('button').removeClass(game.houses[i]);
     }
     $('h2.messageText').hide();
+    game.hiddenAnswer();
     game.controls();
-    game.displayedWord();
     game.randomLetterArr = game.noDuplicates(game.answer.replace(/\s/g, '')).split('');
     game.counter();
 };
