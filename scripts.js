@@ -182,6 +182,7 @@ game.correctLetterGuess = function () {
     if (! game.answer.includes(game.letterClicked.toLowerCase())) {
         game.loseLives();
     }
+    // after checking if the letter was correct on not add the letter clicked to the set
     game.lettersClicked.add(game.letterClicked);
     game.winCheck();
 };
@@ -207,6 +208,7 @@ game.loseLives = function () {
             if (game.livesCount === 0) {
                 $('h2.hiddenAnswer').html(game.answer.replace(/\s/g, '&nbsp&nbsp')).hide(2000, 'linear');
                 $('h2.messageText').html('valar morghulis').show(1000, 'linear');
+                console.log('lose');
             }
         }
     }
@@ -246,7 +248,7 @@ game.correctWordGuess = function () {
 game.winCheck = function () {
     const answerLetters = [...document.querySelectorAll('.answerLetter')];
     const win = answerLetters.every(letter => letter.innerText !== '__');
-    if (win) game.winSequence();
+    if (win && answerLetters.length !== 0) game.winSequence();
 };
 
 game.winSequence = function () {
