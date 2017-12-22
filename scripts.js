@@ -11,7 +11,6 @@ game.keyboard = () => {
         if (game.livesCount > 0) {
             if (e.keyCode >= 65 && e.keyCode <= 90) {
                 game.letterClicked = String.fromCharCode(e.keyCode);
-                game.lettersClicked.add(game.letterClicked);
                 game.correctLetterGuess();
                 // if a button's text matches that of the letter pressed hide it from the user so they will know not to select it again
                 for (i = 0; i < document.querySelectorAll('.letter').length; i++) {
@@ -182,8 +181,8 @@ game.correctLetterGuess = function () {
     })
     if (! game.answer.includes(game.letterClicked.toLowerCase())) {
         game.loseLives();
-        console.log('wtf');
     }
+    game.lettersClicked.add(game.letterClicked);
     game.winCheck();
 };
 
@@ -191,7 +190,6 @@ game.letterGuess = function () {
     $('ul.letterSelector').on('click', 'button', function () {
         // get the text from the input clicked and check if the letter is in the answer
         game.letterClicked = $(this).text();
-        game.lettersClicked.add(game.letterClicked);
         game.correctLetterGuess();
         $(this).fadeOut('400 milliseconds', 'swing');
     });
@@ -249,14 +247,6 @@ game.winCheck = function () {
     const answerLetters = [...document.querySelectorAll('.answerLetter')];
     const win = answerLetters.every(letter => letter.innerText !== '__');
     if (win) game.winSequence();
-
-    // if (game.noSpaces(game.hiddenAnswer) === game.noSpaces(game.answer)) {
-    //     // the player wins if all the letters guessed together match the answer
-    //     // to compare the user's guessed answer vs. the answer the two need to have comparable values
-    //     // the guessed answer is displayed with spaces in between each letter, so these must be removed for an apples-to-apples comparison
-    //     // with all spaces removed for the guessed answer, the answer also needs its spaces removed
-    //     game.winSequence();
-    // }
 };
 
 game.winSequence = function () {
