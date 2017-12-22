@@ -131,7 +131,7 @@ game.displayedWord = () => {
     game.hiddenAnswer = game.answer.split(' ').map(word => word.split(''));
     game.displayedWord = game.hiddenAnswer
         .map(word => 
-        word.map(letter => `<div class="letter">__</div>`));
+        word.map(letter => `<div class="letter" data-letter=${letter}>__</div>`));
     game.displayedWord = game.displayedWord.map(word => word.join(''));
     const displayedWord = game.displayedWord.map(word => `<div class="word flex">${word}</div>`);
     $('.hiddenAnswer').html(displayedWord);
