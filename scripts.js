@@ -240,14 +240,6 @@ game.winSequence = function () {
     $('h2.messageText').text('What is dead may never die.').show(1500, 'linear');
 };
 
-// GAME FLOW
-// Any output arising from a win or lose shall be hidden
-// The house selector will be shown as in the case the user clicked it, it would have been hidden away
-// The game controls will be called and have their display and values reset
-// A random word will be selected then converted to underscores and shown in the h2 
-// The random letter array will be called and hold each individual letter of the answer
-// The counter tracking the number of lives and free letters will be called and reset 
-
 game.gameStart = function () {
     game.lettersClicked = new Set();
     for (let i = 0; i < game.houses.length; i++) {
@@ -256,19 +248,16 @@ game.gameStart = function () {
     $('h2.messageText').hide();
     game.controls();
     game.displayedWord();
-    game.randomLetterArr = game.answer.replace(/\s/g, '').split('');
+    game.randomLetterArr = game.noDuplicates(game.answer.replace(/\s/g, '')).split('');
     game.counter();
 };
 
 game.newGame = function () {
-    // on click of the button with the id new game, reset all the functions on the page
     $('body').on('click', 'button#newGame', function () {
         game.gameStart();
         game.letterHelp();
     });
 }
-
-// INTERACTIVE FUNCTIONS
 
 game.events = function () {
     $('form').on('submit', function (e) {
@@ -283,8 +272,6 @@ game.events = function () {
     game.houseSelector();
     game.newGame();
 };
-
-// OVERALL FUNCTIONS
 
 game.init = function () {
     game.gameStart();
