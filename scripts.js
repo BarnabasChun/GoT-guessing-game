@@ -8,8 +8,8 @@ game.keyboard = () => {
         // if the key pressed is a letter then set it to the value of letterClicked and check if the letter is in the answer
         if (game.livesCount > 0) {
             // only listen for letters
-            if (e.keyCode >= 65 && e.keyCode <= 90) {
-                game.letterClicked = String.fromCharCode(e.keyCode);
+            if (game.alphabet.includes(e.key.toUpperCase())) {
+                game.letterClicked = e.key;
                 game.correctLetterGuess();
                 // if a button's text matches that of the letter pressed hide it from the user so they will know not to select it again
                 for (i = 0; i < document.querySelectorAll('.letter').length; i++) {
@@ -20,9 +20,9 @@ game.keyboard = () => {
             }  
         }
     }
-    document.addEventListener("keydown", clickLetter);
-    $('#wordGuess').on('click', () => document.removeEventListener('keydown', clickLetter));
-    $('#wordGuess').on('blur', () => document.addEventListener('keydown', clickLetter));
+    document.addEventListener("keyup", clickLetter);
+    $('#wordGuess').on('click', () => document.removeEventListener('keyup', clickLetter));
+    $('#wordGuess').on('blur', () => document.addEventListener('keyup', clickLetter));
 };
 
 // GAME CONTROLS
@@ -247,6 +247,7 @@ game.gameStart = function () {
         $('button').removeClass(game.houses[i]);
     }
     $('h2.messageText').hide();
+    $('h2.hiddenAnswer').show();
     game.hiddenAnswer();
     game.controls();
     game.randomLetterArr = game.noDuplicates(game.answer.replace(/\s/g, '')).split('');
