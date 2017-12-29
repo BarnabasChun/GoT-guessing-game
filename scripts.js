@@ -22,6 +22,7 @@ game.keyboard = () => {
     }
     document.addEventListener("keydown", clickLetter);
     $('#wordGuess').on('click', () => document.removeEventListener('keydown', clickLetter));
+    $('#wordGuess').on('blur', () => document.addEventListener('keydown', clickLetter));
 };
 
 // GAME CONTROLS
